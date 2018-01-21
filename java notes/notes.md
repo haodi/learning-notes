@@ -16,4 +16,8 @@ JAVA 学习笔记
     
     内部迭代：与使用迭代器显式迭代的集合不同，流的迭代操作是在背后进行的。
     
+### buffer和cache区分
+    A buffer is something that has yet to be "written" to disk. 
+    A cache is something that has been "read" from the disk and stored for later use. 
+    
     
