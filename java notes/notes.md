@@ -20,4 +20,7 @@ JAVA 学习笔记
     A buffer is something that has yet to be "written" to disk. 
     A cache is something that has been "read" from the disk and stored for later use. 
     
+### Java内存模型与线程
+    从硬件架构上讲，指令重排序是指CPU采用了允许将多条指令不按程序规定的顺序分开发送给各相应电路单元处理。
+    
     
