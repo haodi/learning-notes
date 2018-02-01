@@ -25,6 +25,8 @@ Rabbit MQ 学习笔记
      授权用户
      sudo rabbitmqctl authenticate_user {user} {password}
      
+     rabbitmqctl  set_permissions -p /  admin '.*' '.*' '.*' 
+     
      启用远程访问
      sudo rabbitmqctl set_user_tags {user} administrator
      
