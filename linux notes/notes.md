@@ -31,13 +31,13 @@ Linux 学习笔记
     # 总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数
     
     # 查看物理CPU个数
-    cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
+    cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l
     
     # 查看每个物理CPU中core的个数(即核数)
-    cat /proc/cpuinfo| grep "cpu cores"| uniq
+    cat /proc/cpuinfo | grep "cpu cores" | uniq
     
     # 查看逻辑CPU的个数
-    cat /proc/cpuinfo| grep "processor"| wc -l
+    cat /proc/cpuinfo | grep "processor" | wc -l
     
     # 查看CPU信息（型号）
     cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
@@ -45,5 +45,8 @@ Linux 学习笔记
     # 查看内存信息
     cat /proc/meminfo
     
- ### 使用tcpdump查看端口接收到的数据
-     sudo tcpdump -s 0 -A port ${port}
+### 查看指定文件夹里按文件大小排序的前三个文件
+    du --max-depth=1 -h /data | sort -hr | head -3
+    
+    --max-depth=1，指定只统计第一层文件夹的大小
+    sort -hr，按人类可读的数值、相反的顺序展示
