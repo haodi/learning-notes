@@ -44,3 +44,6 @@ Linux 学习笔记
     
     # 查看内存信息
     cat /proc/meminfo
+    
+ ### 使用tcpdump查看端口接收到的数据
+     sudo tcpdump -s 0 -A port ${port}
