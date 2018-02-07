@@ -50,3 +50,6 @@ Linux 学习笔记
     
     --max-depth=1，指定只统计第一层文件夹的大小
     sort -hr，按人类可读的数值、相反的顺序展示
+    
+ ### 使用tcpdump查看端口接收到的数据
+     sudo tcpdump -s 0 -A port ${port}
