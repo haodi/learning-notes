@@ -51,5 +51,35 @@ Linux 学习笔记
     --max-depth=1，指定只统计第一层文件夹的大小
     sort -hr，按人类可读的数值、相反的顺序展示
     
- ### 使用tcpdump查看端口接收到的数据
+### 使用tcpdump查看端口接收到的数据
      sudo tcpdump -s 0 -A port ${port}
+     
+### 查看设备、文件被哪个进程使用命令lsof
+
+    在linux环境下，任何事物都以文件的形式存在，通过文件不仅仅可以访问常规数据，还可以访问网络连接和硬件。
+    所以如传输控制协议 (TCP) 和用户数据报协议 (UDP) 套接字等，系统在后台都为该应用程序分配了一个文件描述符，无论这个文件
+    的本质如何，该文件描述符为应用程序与基础操作系统之间的交互提供了通用接口。因为应用程序打开文件的描述符列表提供了大量关于
+    这个应用程序本身的信息，因此通过lsof工具能够查看这个列表对系统监测以及排错将是很有帮助的。
+
+    -a：列出打开文件存在的进程；
+    -c<进程名>：列出指定进程所打开的文件；
+    -g：列出GID号进程详情；
+    -d<文件号>：列出占用该文件号的进程；
+    +d<目录>：列出目录下被打开的文件；
+    +D<目录>：递归列出目录下被打开的文件；
+    -n<目录>：列出使用NFS的文件；
+    -i<条件>：列出符合条件的进程。（4、6、协议、:端口、 @ip ）
+    -p<进程号>：列出指定进程号所打开的文件；
+    -u：列出UID号进程详情；
+    -h：显示帮助信息；
+    -v：显示版本信息。
+    
+    查看进程打开了多少文件
+    cat /proc/${PID}/fd 或者 lsof -p ${PID}
+    
+    查看每个进程文件描述符打开的最大限制
+    ulimit -a
+    
+    文件描述符不够时
+    1、Check your application logic and make sure it is not opening too many files unnecessarily (for example, In a loop there is file open, but it is not getting closed anywhere)
+    2、Increase the open files limit on your system.
