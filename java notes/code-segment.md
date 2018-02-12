@@ -3,15 +3,20 @@
     
         public static void delete(Path path) {
             try {
-                if (Files.isDirectory(path)) {
-                    Stream<Path> children = Files.list(path);
-                    children.forEach(FileHelper::delete);
-                }
-                Files.deleteIfExists(path);
+                Files.walk(pathToBeDeleted)
+                      .sorted(Comparator.reverseOrder())
+                      .map(Path::toFile)
+                      .forEach(File::delete);
             } catch (IOException e) {
                 LOGGER.error("delete file exception", e);
             }
         }
+        
+        # Using FileSystemUtils from Spring
+        FileSystemUtils.deleteRecursively(file);
+        
+        # Using FileUtils from commons-io
+        FileUtils.deleteDirectory(file);
         
 ### 获取本机所有IP地址
         private static final Logger LOGGER = LoggerFactory.getLogger(IPHelper.class);
