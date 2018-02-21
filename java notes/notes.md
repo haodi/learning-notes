@@ -39,4 +39,13 @@ JAVA 学习笔记
     增加运维的复杂性
     增加devops的复杂性
     
+### 查看JVM正在使用的垃圾收集器
+    命令方式：java -XX:+PrintFlagsFinal -version | grep :
+    
+    代码方式：
+     List<GarbageCollectorMXBean> l = ManagementFactory.getGarbageCollectorMXBeans();  
+     for(GarbageCollectorMXBean b : l) {  
+        System.out.println(b.getName());  
+     }  
+    
     
