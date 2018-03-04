@@ -134,6 +134,8 @@ Linux 学习笔记
     -u：列出UID号进程详情；
     -h：显示帮助信息；
     -v：显示版本信息。
+    -t  This option specifies that lsof should produce terse output with process identifiers only and no header - e.g., so that the  output  may  be
+                    piped to kill(1).  This option selects the -w option.
     
     查看进程的线程数
     ps -Lf <pid>
