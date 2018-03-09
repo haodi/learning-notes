@@ -140,6 +140,9 @@ Linux 学习笔记
     查看进程的线程数
     ps -Lf <pid>
     
+    查看进程PID
+    lsof -ti:${port}
+    
     查看进程打开了多少文件
     cat /proc/${PID}/fd 或者 lsof -p ${PID}
     
