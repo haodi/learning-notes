@@ -61,3 +61,22 @@
     
     Path path = Paths.get(getClass().getResource("/myfile.txt").toURI());
     String content = new String(Files.readAllBytes(path));
+    
+### Reading a resource file from within jar
+
+    private String readResourceWithinJar(String fileName) {
+            StringBuilder sb = new StringBuilder();
+            BufferedReader reader;
+            try (InputStream in = getClass().getResourceAsStream(fileName)) {
+                reader = new BufferedReader(new InputStreamReader(in));
+                String tempString;
+                while ((tempString = reader.readLine()) != null) {
+                    sb.append(" ").append(tempString);
+                }
+                reader.close();
+            } catch (Exception e) {
+                LOGGER.error("Read {} file error.", e);
+                return null;
+            }
+            return sb.toString();
+        }
