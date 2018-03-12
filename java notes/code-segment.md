@@ -54,3 +54,10 @@
             }
             return request.getRemoteAddr();
         }
+        
+### Easy Way to Read Classpath Resource in Java
+
+    Using Java NIO (java.nio.* package) it is extremely easy to read classpath resource as a string
+    
+    Path path = Paths.get(getClass().getResource("/myfile.txt").toURI());
+    String content = new String(Files.readAllBytes(path));
