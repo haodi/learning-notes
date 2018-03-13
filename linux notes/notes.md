@@ -144,3 +144,17 @@ Linux 学习笔记
     文件描述符不够时
     1、Check your application logic and make sure it is not opening too many files unnecessarily (for example, In a loop there is file open, but it is not getting closed anywhere)
     2、Increase the open files limit on your system.
+    
+### 直接查看压缩文件里的内容
+    
+    zgrep ${keyWord} ${target .gz file}
+    zcat ${keyWord} ${target .gz file}
+    
+    zcat  解压文件并将内容输出到标准输出
+    zcmp  解压文件并且 byte by byte 比较两个文件
+    zdiff 解压文件并且 line by line 比较两个文件
+    zgrep 解压文件并且根据正则搜索文件内容
+    ztest - Tests integrity of compressed files.
+    zupdate - Recompresses files to lzip format.
+    
+    支持 bzip2, gzip, lzip and xz 格式。
