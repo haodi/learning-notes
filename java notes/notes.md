@@ -34,4 +34,41 @@ JAVA 学习笔记
     
     简化部署：在有几百万代码行的单块应用程序中，即使只修改了一行代码，也需要重新部署整个应用程序才能够发布该变更。
     
+### 微服务的缺点
+    增加开发的复杂性
+    增加运维的复杂性
+    增加devops的复杂性
+    
+### 查看JVM正在使用的垃圾收集器
+    命令方式：java -XX:+PrintFlagsFinal -version | grep :
+    
+    代码方式：
+     List<GarbageCollectorMXBean> l = ManagementFactory.getGarbageCollectorMXBeans();  
+     for(GarbageCollectorMXBean b : l) {  
+        System.out.println(b.getName());  
+     }  
+    
+### jstat命令
+
+    jstat [-命令选项] [vmid] [间隔时间/毫秒] [查询次数]
+    
+    选项 -gc 结果说明（jdk8）
+    
+    S0C：第一个幸存区的大小
+    S1C：第二个幸存区的大小
+    S0U：第一个幸存区的使用大小
+    S1U：第二个幸存区的使用大小
+    EC：伊甸园区的大小
+    EU：伊甸园区的使用大小
+    OC：老年代大小
+    OU：老年代使用大小
+    MC：方法区大小
+    MU：方法区使用大小
+    CCSC:压缩类空间大小
+    CCSU:压缩类空间使用大小
+    YGC：年轻代垃圾回收次数
+    YGCT：年轻代垃圾回收消耗时间
+    FGC：老年代垃圾回收次数
+    FGCT：老年代垃圾回收消耗时间
+    GCT：垃圾回收消耗总时间
     
