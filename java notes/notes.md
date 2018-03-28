@@ -74,3 +74,15 @@ JAVA 学习笔记
     
     jstat -gcnew ${pid} 新生代垃圾回收情况
     
+### Initial Heap Size and Maximum Heap Size Changed for Parallel Garbage Collector
+
+    On server-class machines running either VM (client or server) with the parallel garbage collector (-XX:+UseParallelGC) the initial heap size and maximum heap size have changed as follows.
+    
+    initial heap size
+    Larger of 1/64th of the machine's physical memory on the machine or some reasonable minimum. Before Java SE 5.0, the default initial heap size was a reasonable minimum, which varies by platform. You can override this default using the -Xms command-line option.
+    
+    maximum heap size
+    Smaller of 1/4th of the physical memory or 1GB. Before Java SE 5.0, the default maximum heap size was 64MB. You can override this default using the -Xmx command-line option.
+    
+    Note: The boundaries and fractions given for the heap size are correct for Java SE 5.0. They are likely to be different in subsequent releases as computers get more powerful.
+    
