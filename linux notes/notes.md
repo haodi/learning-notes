@@ -166,3 +166,7 @@ Linux 学习笔记
     zupdate - Recompresses files to lzip format.
     
     支持 bzip2, gzip, lzip and xz 格式。
+    
+### sed命令
+
+    sed是一个流编辑器，是另外一种文本处理和转换工具，类似于awk。
