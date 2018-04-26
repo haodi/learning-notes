@@ -84,7 +84,6 @@
 ### Controller接收Date类型字段与返回字符串Date类型
 
     接收Date类型字段（eg. {createTIme:'2018-04-16 13:16:23'}）：
-    
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="Asia/Shanghai")  
     public Date getCreateTime() {  
         return createTime;
