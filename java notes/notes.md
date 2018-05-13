@@ -118,3 +118,15 @@ JAVA 学习笔记
     
     为了使以上两个参数生效，这里还需要将堆得初始值和最大值设置为不同的值，因为如果堆得初始大小和最大值一致，那么必然是一个稳定的堆，以上两个参数便会失效。
     
+### Java中使用相对路径读取文件
+
+    简单粗暴的 File file = new File(“src/test.txt”)
+    使用类的相对路径
+    使用当前线程的类加载器
+    读取web工程下的文件 使用getRealPath()读取
+    
+    File file = new File("src/test.txt");
+    File file = new File(TestRelativePath.class.getResource("/test.txt").getFile());
+    File file = new File(Thread.currentThread().getContextClassLoader().getResource("test.txt").getFile());
+    File file = new File(getServletContext().getRealPath("/WEB-INF/classes/test.txt"));
+    
