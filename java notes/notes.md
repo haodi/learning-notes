@@ -129,4 +129,23 @@ JAVA 学习笔记
     File file = new File(TestRelativePath.class.getResource("/test.txt").getFile());
     File file = new File(Thread.currentThread().getContextClassLoader().getResource("test.txt").getFile());
     File file = new File(getServletContext().getRealPath("/WEB-INF/classes/test.txt"));
+  
+### How to configure Maven Tomcat Plugin to use HTTPS (SSL/TLS)
+
+    <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+            <path>/</path>
+            <httpsPort>443</httpsPort>
+            <keystoreFile>C:\Users\lihaodi\Desktop\certificate.p12</keystoreFile>
+            <keystorePass>test</keystorePass>
+        </configuration>
+    </plugin>
+
+### 将CRT HTTPS证书转换成 p12 证书
+
+    openssl pkcs12 -export -out certificate.p12 -inkey C:\Users\lihaodi\Desktop\sha2.key /
+    -in C:\Users\lihaodi\Desktop\sha2.crt -certfile C:\Users\lihaodi\Desktop\sha2.crt
     
