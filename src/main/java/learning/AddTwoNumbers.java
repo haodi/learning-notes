@@ -9,12 +9,14 @@ class AddTwoNumbers {
         ListNode l1 = new ListNode(2);
         l1.next = new ListNode(4);
         l1.next.next = new ListNode(3);
+        System.out.println("l1：" + l1);
 
         ListNode l2 = new ListNode(5);
         l2.next = new ListNode(6);
         l2.next.next = new ListNode(4);
+        System.out.println("l2：" + l2);
 
-        System.out.println(addTwoNumbers(l1, l2));
+        System.out.println("result：" + addTwoNumbers(l1, l2));
 
     }
 
