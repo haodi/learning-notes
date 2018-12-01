@@ -2,6 +2,9 @@ package learning.leetcode;
 
 import java.util.TreeSet;
 
+/**
+ * @author lihaodi
+ */
 public class LongestSubString {
     public static void main(String[] args) {
         System.out.println(lengthOfLongestSubstring("abcabcbb"));
