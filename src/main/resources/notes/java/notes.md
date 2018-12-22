@@ -149,3 +149,7 @@ JAVA 学习笔记
     openssl pkcs12 -export -out certificate.p12 -inkey C:\Users\lihaodi\Desktop\sha2.key /
     -in C:\Users\lihaodi\Desktop\sha2.crt -certfile C:\Users\lihaodi\Desktop\sha2.crt
     
+### Spring @Transactional 声明式使用需要注意的地方
+    1、@Transactional只能应用到public方法上
+    2、同个service里，调用了@Transactional注解的方法，不会被事务包裹（spring aop代理下，只有目标方法由外部调用才生效，可以使用指定@EnableTransactionManagement中的model = AdviceModel.ASPECTJ切换代理方式）
+    3、线程中使用@Transactionalz注解不生效
