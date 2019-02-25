@@ -20,3 +20,7 @@
     -Durl=<url-of-the-repository-to-deploy>
 
     eg: mvn -X deploy:deploy-file -DgroupId=org.json -DartifactId=json -Dversion=20160810 -Dpackaging=jar -Dfile=json-20160810.jar -DrepositoryId=jrepo2-public -Durl=http://jrepo2.yypm.com/nexus/content/repositories/releases/
+    
+### 计算机性能指标
+
+    RTT(Round-Trip Time): 往返时延。在计算机网络中它是一个重要的性能指标，表示从发送端发送数据开始，到发送端收到来自接收端的确认（接收端收到数据后便立即发送确认），总共经历的时延。
