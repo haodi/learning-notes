@@ -153,3 +153,6 @@ JAVA 学习笔记
     1、@Transactional只能应用到public方法上
     2、同个service里，调用了@Transactional注解的方法，不会被事务包裹（spring aop代理下，只有目标方法由外部调用才生效，可以使用指定@EnableTransactionManagement中的model = AdviceModel.ASPECTJ切换代理方式）
     3、线程中使用@Transactionalz注解不生效
+    4、同service调用（使用DataSourceTransactionManager、或者从容器里获取该service的代理类BeanFactory#getBean(getClass())、或者@EnableAspectJAutoProxy(exposeProxy = true)）
+    5、不同service调用，service A调用service B@Transactional、@Async方法，该service B继续调用@Transactional、@Async方法（该方法不生效）
+    6、@Transactional、@Async一起使用
