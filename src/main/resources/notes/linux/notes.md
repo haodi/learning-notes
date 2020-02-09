@@ -52,7 +52,7 @@ Linux 学习笔记
     sort -hr，按人类可读的数值、相反的顺序展示
     
  ### 使用tcpdump查看端口接收到的数据
-     sudo tcpdump -s 0 -A port ${port}
+     sudo tcpdump -s 0 -X 'tcp dst port 80'
      
  ### find命令
     -amin<分钟>：查找在指定时间曾被存取过的文件或目录，单位以分钟计算；
