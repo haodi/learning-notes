@@ -32,17 +32,15 @@ public class TopK {
     }
 
     private static void initFile() throws IOException {
-        OutputStream fileOutputStream = new FileOutputStream(PATH);
-
-        while (Files.size(Paths.get(PATH)) < FILE_SIZE) {
-            int index = RANDOM.nextInt(WORD.length);
-            String word = WORD[index];
-            fileOutputStream.write(word.getBytes());
-            fileOutputStream.write("\r\n".getBytes());
+        try (OutputStream fileOutputStream = new FileOutputStream(PATH)) {
+            while (Files.size(Paths.get(PATH)) < FILE_SIZE) {
+                int index = RANDOM.nextInt(WORD.length);
+                String word = WORD[index];
+                fileOutputStream.write(word.getBytes());
+                fileOutputStream.write("\r\n".getBytes());
+            }
+            fileOutputStream.flush();
         }
-
-        fileOutputStream.flush();
-        fileOutputStream.close();
     }
 
     // 建立一个文件名为单词的文件，内容为该单词出现的次数
