@@ -9,7 +9,8 @@
     思路：分而治之
     
    1、JVM内存受限为5M，现在需要统计一份文件（文件大小为2G）里出现频次较高的top100的单词，请写出代码，并给出最优解
-    
+   
+   解法思路，统计每个单词出现的次数（创建以单词命名的文件，把出现次数写到文件中），再维护一个长度为k的小顶堆。
    [解法示例](https://github.com/haodi/learning-notes/blob/master/src/main/java/learning/leetcode/TopK.java)
    
     2、a、b两个文件，每个文件有5亿条url（每条url大小为64k），机器内存为4G，找出a、b两个文件中重复的url
