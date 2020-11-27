@@ -1,13 +1,12 @@
 package learning.leetcode;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Random;
@@ -20,27 +19,37 @@ public class TopK {
             "apple", "orange", "pear", "banana", "tangerine", "grape", "blueberry", "passion fruit", "watermelon"
     };
 
-    private static PriorityQueue<Integer> queue = new PriorityQueue<>(new Comparator<Integer>() {
-        public int compare(Integer m, Integer n) {
-            return m - n;
+    private static PriorityQueue<String[]> queue = new PriorityQueue<String[]>(new Comparator<String[]>() {
+        public int compare(String[] m, String[] n) {
+            return Integer.parseInt(m[1]) - Integer.parseInt(n[1]);
         }
     });
 
-    public static void main(String[] args) throws IOException {
-        initFile();
+    public static void main(String[] args) throws Exception {
+        long startTime = System.currentTimeMillis();
+
+        if (!Files.exists(Paths.get(PATH))) {
+            Files.createFile(Paths.get(PATH));
+        }
+
+//        initFile();
         countWorld(3);
+
+        System.out.println("Done in " + (System.currentTimeMillis() - startTime) + "ms.");
     }
 
     private static void initFile() throws IOException {
-        try (OutputStream fileOutputStream = new FileOutputStream(PATH)) {
-            while (Files.size(Paths.get(PATH)) < FILE_SIZE) {
-                int index = RANDOM.nextInt(WORD.length);
-                String word = WORD[index];
-                fileOutputStream.write(word.getBytes());
-                fileOutputStream.write("\r\n".getBytes());
-            }
-            fileOutputStream.flush();
+        BufferedWriter bw = Files.newBufferedWriter(Paths.get(PATH), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+
+        while (Files.size(Paths.get(PATH)) < FILE_SIZE) {
+            int index = RANDOM.nextInt(WORD.length);
+            String word = WORD[index];
+
+            bw.write(word);
+            bw.newLine();
         }
+
+        bw.close();
     }
 
     // 建立一个文件名为单词的文件，内容为该单词出现的次数
@@ -49,45 +58,44 @@ public class TopK {
             return;
         }
 
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(PATH));
-        String word;
-        while ((word = bufferedReader.readLine()) != null) {
+        Files.lines(Paths.get(PATH)).forEach(word -> {
+            Path path = Paths.get(PATH).getParent().resolve("word_count").resolve(word);
             try {
-                Path currentWorldCountPath = Paths.get(PATH).getParent().resolve("word_count").resolve(word);
-                if (Files.exists(currentWorldCountPath)) {
-                    BufferedReader fileReader = new BufferedReader(new FileReader(currentWorldCountPath.toFile()));
-                    String count = fileReader.readLine();
-                    int currentCount = 0;
-                    if (count != null) {
-                        currentCount = Integer.parseInt(count) + 1;
-                    }
+                if (!Files.exists(path)) {
+                    Files.createFile(path);
+                }
 
-                    try (OutputStream outputStream = new FileOutputStream(currentWorldCountPath.toString())) {
-                        outputStream.write(String.valueOf(currentCount).getBytes());
-                        outputStream.flush();
-                    }
+                BufferedWriter bufferedWriter = Files.newBufferedWriter(path, StandardOpenOption.APPEND);
+                bufferedWriter.write(word);
+                bufferedWriter.newLine();
+                bufferedWriter.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
-                    // 取频率最高的前k个，维护一个小顶堆
-                    if (queue.size() == k) {
-                        if (queue.peek() < currentCount) {
-                            queue.poll();
-                            queue.offer(currentCount);
-                        }
-                    } else {
-                        queue.offer(currentCount);
-                    }
+        Files.list(Paths.get(PATH).getParent().resolve("word_count")).forEach(wordFile -> {
+            try {
+                long count = Files.lines(wordFile.toAbsolutePath()).count();
 
-                    System.out.println("current word: " + word + " count: " + queue.peek());
+                // 取频率最高的前k个，维护一个小顶堆
+                if (queue.size() == k) {
+                    if (Integer.parseInt(queue.peek()[1]) < count) {
+                        queue.poll();
+                        queue.offer(new String[]{wordFile.getFileName().toString(), String.valueOf(count)});
+                    }
                 } else {
-                    if (currentWorldCountPath.toFile().createNewFile()) {
-                        try (FileOutputStream fileOutputStream = new FileOutputStream(currentWorldCountPath.toString())) {
-                            fileOutputStream.write("0".getBytes());
-                            fileOutputStream.flush();
-                        }
-                    }
+                    queue.offer(new String[]{wordFile.getFileName().toString(), String.valueOf(count)});
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        });
+
+        for (int i = 0; i < k; i++) {
+            String[] ret = queue.poll();
+            if (ret != null) {
+                System.out.print(ret[0] + ":" + Integer.parseInt(ret[1]) + " ");
             }
         }
     }
